@@ -1,0 +1,296 @@
+html.ui--color-theme--neutral {
+  --ui-base: oklch(0.56 0 0);
+  --ui-background: oklch(from var(--ui-base) 0.97 0 h);
+  --ui-card: oklch(from var(--ui-base) 1 0 h);
+  --ui-popover: oklch(from var(--ui-base) 1 0 h);
+  --ui-primary: oklch(from var(--ui-base) 0.35 0 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.85 0 h);
+  --ui-muted: oklch(from var(--ui-base) 0.95 0 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.45 0 h);
+  --ui-accent: oklch(from var(--ui-base) 0.92 0 h);
+}
+
+html.ui--color-theme--neutral.ui--dark {
+  --ui-base: oklch(0.56 0 0);
+  --ui-background: oklch(from var(--ui-base) 0.1 0 h);
+  --ui-card: oklch(from var(--ui-base) 0.14 0 h);
+  --ui-popover: oklch(from var(--ui-base) 0.13 0 h);
+  --ui-primary: oklch(from var(--ui-base) 0.8 0 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.3 0 h);
+  --ui-muted: oklch(from var(--ui-base) 0.18 0 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.5 0 h);
+  --ui-accent: oklch(from var(--ui-base) 0.2 0 h);
+}
+
+html.ui--color-theme--stone {
+  --ui-base: oklch(0.55 0.01 58);
+  --ui-background: oklch(from var(--ui-base) 0.97 0.01 h);
+  --ui-card: oklch(from var(--ui-base) 1 0.01 h);
+  --ui-popover: oklch(from var(--ui-base) 1 0.01 h);
+  --ui-primary: oklch(from var(--ui-base) 0.35 0.01 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.85 0.01 h);
+  --ui-muted: oklch(from var(--ui-base) 0.95 0.01 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.45 0.01 h);
+  --ui-accent: oklch(from var(--ui-base) 0.92 0.01 h);
+}
+
+html.ui--color-theme--stone.ui--dark {
+  --ui-background: oklch(from var(--ui-base) 0.1 0.01 h);
+  --ui-card: oklch(from var(--ui-base) 0.14 0.01 h);
+  --ui-popover: oklch(from var(--ui-base) 0.13 0.01 h);
+  --ui-primary: oklch(from var(--ui-base) 0.8 0.01 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.3 0.01 h);
+  --ui-muted: oklch(from var(--ui-base) 0.18 0.01 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.5 0.01 h);
+  --ui-accent: oklch(from var(--ui-base) 0.2 0.01 h);
+}
+
+html.ui--color-theme--zinc {
+  --ui-base: oklch(0.55 0.01 286);
+  --ui-background: oklch(from var(--ui-base) 0.97 0.01 h);
+  --ui-card: oklch(from var(--ui-base) 1 0.01 h);
+  --ui-popover: oklch(from var(--ui-base) 1 0.01 h);
+  --ui-primary: oklch(from var(--ui-base) 0.35 0.01 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.85 0.01 h);
+  --ui-muted: oklch(from var(--ui-base) 0.95 0.01 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.45 0.01 h);
+  --ui-accent: oklch(from var(--ui-base) 0.92 0.01 h);
+}
+
+html.ui--color-theme--zinc.ui--dark {
+  --ui-background: oklch(from var(--ui-base) 0.1 0.01 h);
+  --ui-card: oklch(from var(--ui-base) 0.14 0.01 h);
+  --ui-popover: oklch(from var(--ui-base) 0.13 0.01 h);
+  --ui-primary: oklch(from var(--ui-base) 0.8 0.01 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.3 0.01 h);
+  --ui-muted: oklch(from var(--ui-base) 0.18 0.01 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.5 0.01 h);
+  --ui-accent: oklch(from var(--ui-base) 0.2 0.01 h);
+}
+
+html.ui--color-theme--slate {
+  --ui-base: oklch(0.55 0.04 257);
+  --ui-background: oklch(from var(--ui-base) 0.97 0.04 h);
+  --ui-card: oklch(from var(--ui-base) 1 0.04 h);
+  --ui-popover: oklch(from var(--ui-base) 1 0.04 h);
+  --ui-primary: oklch(from var(--ui-base) 0.35 0.04 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.85 0.04 h);
+  --ui-muted: oklch(from var(--ui-base) 0.95 0.04 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.45 0.04 h);
+  --ui-accent: oklch(from var(--ui-base) 0.92 0.04 h);
+}
+
+html.ui--color-theme--slate.ui--dark {
+  --ui-background: oklch(from var(--ui-base) 0.1 0.04 h);
+  --ui-card: oklch(from var(--ui-base) 0.14 0.04 h);
+  --ui-popover: oklch(from var(--ui-base) 0.13 0.04 h);
+  --ui-primary: oklch(from var(--ui-base) 0.8 0.04 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.3 0.04 h);
+  --ui-muted: oklch(from var(--ui-base) 0.18 0.04 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.5 0.04 h);
+  --ui-accent: oklch(from var(--ui-base) 0.2 0.04 h);
+}
+
+html.ui--color-theme--gray {
+  --ui-base: oklch(0.55 0.02 264);
+  --ui-background: oklch(from var(--ui-base) 0.97 0.02 h);
+  --ui-card: oklch(from var(--ui-base) 1 0.02 h);
+  --ui-popover: oklch(from var(--ui-base) 1 0.02 h);
+  --ui-primary: oklch(from var(--ui-base) 0.35 0.02 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.85 0.02 h);
+  --ui-muted: oklch(from var(--ui-base) 0.95 0.02 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.45 0.02 h);
+  --ui-accent: oklch(from var(--ui-base) 0.92 0.02 h);
+}
+
+html.ui--color-theme--gray.ui--dark {
+  --ui-background: oklch(from var(--ui-base) 0.1 0.02 h);
+  --ui-card: oklch(from var(--ui-base) 0.14 0.02 h);
+  --ui-popover: oklch(from var(--ui-base) 0.13 0.02 h);
+  --ui-primary: oklch(from var(--ui-base) 0.8 0.02 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.3 0.02 h);
+  --ui-muted: oklch(from var(--ui-base) 0.18 0.02 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.5 0.02 h);
+  --ui-accent: oklch(from var(--ui-base) 0.2 0.02 h);
+}
+
+html.ui--color-theme--mauve {
+  --ui-base: oklch(0.58 0.04 310);
+  --ui-background: oklch(from var(--ui-base) 0.97 0.04 h);
+  --ui-card: oklch(from var(--ui-base) 1 0.04 h);
+  --ui-popover: oklch(from var(--ui-base) 1 0.04 h);
+  --ui-primary: oklch(from var(--ui-base) 0.35 0.04 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.85 0.04 h);
+  --ui-muted: oklch(from var(--ui-base) 0.95 0.04 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.45 0.04 h);
+  --ui-accent: oklch(from var(--ui-base) 0.92 0.04 h);
+}
+
+html.ui--color-theme--mauve.ui--dark {
+  --ui-background: oklch(from var(--ui-base) 0.1 0.04 h);
+  --ui-card: oklch(from var(--ui-base) 0.14 0.04 h);
+  --ui-popover: oklch(from var(--ui-base) 0.13 0.04 h);
+  --ui-primary: oklch(from var(--ui-base) 0.8 0.04 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.3 0.04 h);
+  --ui-muted: oklch(from var(--ui-base) 0.18 0.04 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.5 0.04 h);
+  --ui-accent: oklch(from var(--ui-base) 0.2 0.04 h);
+}
+
+html.ui--color-theme--olive {
+  --ui-base: oklch(0.58 0.03 155);
+  --ui-background: oklch(from var(--ui-base) 0.97 0.03 h);
+  --ui-card: oklch(from var(--ui-base) 1 0.03 h);
+  --ui-popover: oklch(from var(--ui-base) 1 0.03 h);
+  --ui-primary: oklch(from var(--ui-base) 0.35 0.03 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.85 0.03 h);
+  --ui-muted: oklch(from var(--ui-base) 0.95 0.03 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.45 0.03 h);
+  --ui-accent: oklch(from var(--ui-base) 0.92 0.03 h);
+}
+
+html.ui--color-theme--olive.ui--dark {
+  --ui-background: oklch(from var(--ui-base) 0.1 0.03 h);
+  --ui-card: oklch(from var(--ui-base) 0.14 0.03 h);
+  --ui-popover: oklch(from var(--ui-base) 0.13 0.03 h);
+  --ui-primary: oklch(from var(--ui-base) 0.8 0.03 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.3 0.03 h);
+  --ui-muted: oklch(from var(--ui-base) 0.18 0.03 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.5 0.03 h);
+  --ui-accent: oklch(from var(--ui-base) 0.2 0.03 h);
+}
+
+html.ui--color-theme--mist {
+  --ui-base: oklch(0.58 0.03 210);
+  --ui-background: oklch(from var(--ui-base) 0.97 0.03 h);
+  --ui-card: oklch(from var(--ui-base) 1 0.03 h);
+  --ui-popover: oklch(from var(--ui-base) 1 0.03 h);
+  --ui-primary: oklch(from var(--ui-base) 0.35 0.03 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.85 0.03 h);
+  --ui-muted: oklch(from var(--ui-base) 0.95 0.03 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.45 0.03 h);
+  --ui-accent: oklch(from var(--ui-base) 0.92 0.03 h);
+}
+
+html.ui--color-theme--mist.ui--dark {
+  --ui-background: oklch(from var(--ui-base) 0.1 0.03 h);
+  --ui-card: oklch(from var(--ui-base) 0.14 0.03 h);
+  --ui-popover: oklch(from var(--ui-base) 0.13 0.03 h);
+  --ui-primary: oklch(from var(--ui-base) 0.8 0.03 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.3 0.03 h);
+  --ui-muted: oklch(from var(--ui-base) 0.18 0.03 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.5 0.03 h);
+  --ui-accent: oklch(from var(--ui-base) 0.2 0.03 h);
+}
+
+html.ui--color-theme--taupe {
+  --ui-base: oklch(0.58 0.03 75);
+  --ui-background: oklch(from var(--ui-base) 0.97 0.03 h);
+  --ui-card: oklch(from var(--ui-base) 1 0.03 h);
+  --ui-popover: oklch(from var(--ui-base) 1 0.03 h);
+  --ui-primary: oklch(from var(--ui-base) 0.35 0.03 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.85 0.03 h);
+  --ui-muted: oklch(from var(--ui-base) 0.95 0.03 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.45 0.03 h);
+  --ui-accent: oklch(from var(--ui-base) 0.92 0.03 h);
+}
+
+html.ui--color-theme--taupe.ui--dark {
+  --ui-background: oklch(from var(--ui-base) 0.1 0.03 h);
+  --ui-card: oklch(from var(--ui-base) 0.14 0.03 h);
+  --ui-popover: oklch(from var(--ui-base) 0.13 0.03 h);
+  --ui-primary: oklch(from var(--ui-base) 0.8 0.03 h);
+  --ui-secondary: oklch(from var(--ui-base) 0.3 0.03 h);
+  --ui-muted: oklch(from var(--ui-base) 0.18 0.03 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.5 0.03 h);
+  --ui-accent: oklch(from var(--ui-base) 0.2 0.03 h);
+}
+
+html.ui--color-theme--red {
+  --ui-base: oklch(0.64 0.21 25);
+}
+
+html.ui--color-theme--orange {
+  --ui-base: oklch(0.7 0.19 48);
+}
+
+html.ui--color-theme--amber {
+  --ui-base: oklch(0.77 0.16 70);
+}
+
+html.ui--color-theme--yellow {
+  --ui-base: oklch(0.8 0.16 86);
+}
+
+html.ui--color-theme--lime {
+  --ui-base: oklch(0.77 0.2 131);
+}
+
+html.ui--color-theme--green {
+  --ui-base: oklch(0.72 0.19 150);
+}
+
+html.ui--color-theme--emerald {
+  --ui-base: oklch(0.7 0.15 162);
+}
+
+html.ui--color-theme--teal {
+  --ui-base: oklch(0.7 0.12 183);
+}
+
+html.ui--color-theme--cyan {
+  --ui-base: oklch(0.71 0.13 215);
+}
+
+html.ui--color-theme--sky {
+  --ui-base: oklch(0.68 0.15 237);
+}
+
+html.ui--color-theme--blue {
+  --ui-base: oklch(0.62 0.19 260);
+}
+
+html.ui--color-theme--indigo {
+  --ui-base: oklch(0.59 0.2 277);
+}
+
+html.ui--color-theme--violet {
+  --ui-base: oklch(0.61 0.22 293);
+}
+
+html.ui--color-theme--purple {
+  --ui-base: oklch(0.63 0.23 304);
+}
+
+html.ui--color-theme--fuchsia {
+  --ui-base: oklch(0.67 0.26 322);
+}
+
+html.ui--color-theme--pink {
+  --ui-base: oklch(0.66 0.21 354);
+}
+
+html.ui--color-theme--rose {
+  --ui-base: oklch(0.65 0.22 16);
+}
+
+html.ui--rounding--none {
+  --ui-radius: 0rem;
+  --ui-radius-xl: 0rem;
+}
+
+html.ui--rounding--sm {
+  --ui-radius: 0.4rem;
+}
+
+html.ui--rounding--md {
+  --ui-radius: 0.625rem;
+}
+
+html.ui--rounding--lg {
+  --ui-radius: 0.875rem;
+}
+
+html.ui--rounding--xl {
+  --ui-radius: 1rem;
+}

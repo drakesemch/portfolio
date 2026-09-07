@@ -1,0 +1,403 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap");
+
+@import "tailwindcss";
+@import "shadcn/tailwind.css";
+@import "tw-animate-css";
+
+@import "./themes.css";
+@tailwind utilities;
+
+@custom-variant dark (&:is(.ui--dark *));
+
+@theme {
+  --breakpoint-2xs: 25rem;
+  --breakpoint-xs: 30rem;
+
+  --font-body: "Montserrat", sans-serif;
+  --font-cursive: "Mr Dafoe", cursive;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--ui-radius) - 4px);
+  --radius-md: calc(var(--ui-radius) - 2px);
+  --radius-lg: var(--ui-radius);
+  --radius-xl: var(--ui-radius-xl, calc(var(--ui-radius) + 4px));
+  --color-background: var(--ui-background);
+  --color-foreground: var(--ui-foreground);
+  --color-card: var(--ui-card);
+  --color-card-foreground: var(--ui-card-foreground);
+  --color-popover: var(--ui-popover);
+  --color-popover-foreground: var(--ui-popover-foreground);
+  --color-primary: var(--ui-primary);
+  --color-primary-foreground: var(--ui-primary-foreground);
+  --color-secondary: var(--ui-secondary);
+  --color-secondary-foreground: var(--ui-secondary-foreground);
+  --color-muted: var(--ui-muted);
+  --color-muted-foreground: var(--ui-muted-foreground);
+  --color-accent: var(--ui-accent);
+  --color-accent-foreground: var(--ui-accent-foreground);
+  --color-destructive: var(--ui-destructive);
+  --color-border: var(--ui-border);
+  --color-input: var(--ui-input);
+  --color-ring: var(--ui-ring);
+  --color-chart-1: var(--ui-chart-1);
+  --color-chart-2: var(--ui-chart-2);
+  --color-chart-3: var(--ui-chart-3);
+  --color-chart-4: var(--ui-chart-4);
+  --color-chart-5: var(--ui-chart-5);
+  --color-sidebar: var(--ui-sidebar);
+  --color-sidebar-foreground: var(--ui-sidebar-foreground);
+  --color-sidebar-primary: var(--ui-sidebar-primary);
+  --color-sidebar-primary-foreground: var(--ui-sidebar-primary-foreground);
+  --color-sidebar-accent: var(--ui-sidebar-accent);
+  --color-sidebar-accent-foreground: var(--ui-sidebar-accent-foreground);
+  --color-sidebar-border: var(--ui-sidebar-border);
+  --color-sidebar-ring: var(--ui-sidebar-ring);
+  --animate-collapsible-down: collapsible-down 0.2s ease-out;
+  --animate-collapsible-up: collapsible-up 0.2s ease-out;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes collapsible-down {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+
+    to {
+      height: calc-size(auto);
+      opacity: 1;
+    }
+  }
+
+  @keyframes collapsible-up {
+    from {
+      height: calc-size(auto);
+      opacity: 1;
+    }
+
+    to {
+      height: 0;
+      opacity: 0;
+    }
+  }
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+
+    to {
+      height: calc-size(auto);
+      opacity: 1;
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: calc-size(auto);
+      opacity: 1;
+    }
+
+    to {
+      height: 0;
+      opacity: 0;
+    }
+  }
+}
+
+:root {
+  --ui-radius: 0rem;
+  --ui-base: oklch(0% 0 0);
+
+  --ui-background: oklch(from var(--ui-base) 0.97 0.008 h);
+  --ui-foreground: contrast-color(var(--ui-background));
+
+  --ui-card: oklch(from var(--ui-base) 1 0.03 h);
+  --ui-card-foreground: contrast-color(var(--ui-card));
+
+  --ui-popover: oklch(from var(--ui-base) 1 0.03 h);
+  --ui-popover-foreground: contrast-color(var(--ui-popover));
+
+  --ui-primary: oklch(from var(--ui-base) 0.35 0.3 h);
+  --ui-primary-foreground: contrast-color(var(--ui-primary));
+
+  --ui-secondary: oklch(from var(--ui-base) 0.92 0.1 h);
+  --ui-secondary-foreground: contrast-color(var(--ui-secondary));
+
+  --ui-muted: oklch(from var(--ui-base) 0.95 0.02 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.45 0.02 h);
+
+  --ui-accent: oklch(from var(--ui-base) 0.92 0.04 h);
+  --ui-accent-foreground: contrast-color(var(--ui-accent));
+
+  --ui-destructive: oklch(55% 0.22 25);
+  --ui-border: oklch(from var(--ui-base) 0.88 0.01 h / 70%);
+  --ui-input: oklch(from var(--ui-base) 0.94 0.008 h / 80%);
+  --ui-ring: oklch(from var(--ui-base) 0.4 0.6 h / 50%);
+
+  --ui-chart-1: oklch(from var(--ui-base) 0.55 c h);
+  --ui-chart-2: oklch(from var(--ui-base) 0.6 c calc(h + 30));
+  --ui-chart-3: oklch(from var(--ui-base) 0.65 c calc(h + 60));
+  --ui-chart-4: oklch(from var(--ui-base) 0.5 c calc(h - 30));
+  --ui-chart-5: oklch(from var(--ui-base) 0.7 c calc(h + 90));
+
+  --ui-sidebar: oklch(from var(--ui-base) 0.94 0.012 h);
+  --ui-sidebar-foreground: contrast-color(var(--ui-sidebar));
+  --ui-sidebar-primary: oklch(from var(--ui-base) 0.35 c h);
+  --ui-sidebar-primary-foreground: contrast-color(var(--ui-sidebar-primary));
+  --ui-sidebar-accent: oklch(from var(--ui-base) 0.9 0.02 h);
+  --ui-sidebar-accent-foreground: contrast-color(var(--ui-sidebar-accent));
+  --ui-sidebar-border: oklch(from var(--ui-base) 0.85 0.01 h / 40%);
+  --ui-sidebar-ring: oklch(from var(--ui-base) 0.4 c h / 50%);
+}
+
+.ui--dark {
+  --ui-background: oklch(from var(--ui-base) 0.1 0.02 h);
+
+  --ui-card: oklch(from var(--ui-base) 0.14 0.025 h);
+
+  --ui-popover: oklch(from var(--ui-base) 0.13 0.025 h);
+
+  --ui-primary: oklch(from var(--ui-base) 0.8 0.3 h);
+
+  --ui-secondary: oklch(from var(--ui-base) 0.3 0.2 h);
+
+  --ui-muted: oklch(from var(--ui-base) 0.18 0.02 h);
+  --ui-muted-foreground: oklch(from var(--ui-base) 0.5 0.03 h);
+
+  --ui-accent: oklch(from var(--ui-base) 0.2 0.04 h);
+
+  --ui-destructive: oklch(60% 0.22 25);
+  --ui-border: oklch(from var(--ui-base) 0.28 0.03 h / 40%);
+  --ui-input: oklch(from var(--ui-base) 0.16 0.02 h / 60%);
+  --ui-ring: oklch(from var(--ui-base) 0.7 0.6 h / 50%);
+
+  --ui-chart-1: oklch(from var(--ui-base) 0.65 c h);
+  --ui-chart-2: oklch(from var(--ui-base) 0.7 c calc(h + 30));
+  --ui-chart-3: oklch(from var(--ui-base) 0.75 c calc(h + 60));
+  --ui-chart-4: oklch(from var(--ui-base) 0.6 c calc(h - 30));
+  --ui-chart-5: oklch(from var(--ui-base) 0.8 c calc(h + 90));
+
+  --ui-sidebar: oklch(from var(--ui-base) 0.08 0.015 h);
+  --ui-sidebar-primary: oklch(from var(--ui-base) 0.75 c h);
+  --ui-sidebar-accent: oklch(from var(--ui-base) 0.16 0.03 h);
+  --ui-sidebar-border: oklch(from var(--ui-base) 0.3 0.02 h / 20%);
+  --ui-sidebar-ring: oklch(from var(--ui-base) 0.7 c h / 50%);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Custom text selection colors */
+  ::selection {
+    background-color: var(--ui-base);
+    color: contrast-color(var(--ui-base));
+  }
+
+  ::-moz-selection {
+    background-color: var(--ui-base);
+    color: contrast-color(var(--ui-base));
+  }
+
+  .maplibregl-popup-content {
+    @apply bg-transparent! shadow-none! p-0! rounded-none!;
+  }
+
+  .maplibregl-popup-tip {
+    @apply hidden!;
+  }
+}
+
+/* Dark mode selection colors */
+.ui--dark ::selection {
+  background-color: var(--ui-base);
+  color: contrast-color(var(--ui-base));
+}
+
+.ui--dark ::-moz-selection {
+  background-color: var(--ui-base);
+  color: contrast-color(var(--ui-base));
+}
+
+@supports (view-transition-name: root) {
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      --animation-time: 360ms;
+      /*--animation-time: 5000ms;*/
+    }
+
+    ::view-transition-group(root) {
+      animation-duration: var(--animation-time);
+      animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    ::view-transition-group(progress-bar) {
+      animation-duration: var(--animation-time);
+      animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    html[data-navigation-direction="forward"]::view-transition-old(root) {
+      z-index: 1;
+      animation: var(--animation-time) cubic-bezier(0.32, 0.72, 0, 1) both slide-out-left;
+    }
+
+    html[data-navigation-direction="forward"]::view-transition-new(root) {
+      z-index: 2;
+      animation: var(--animation-time) cubic-bezier(0.32, 0.72, 0, 1) both slide-in-right;
+    }
+
+    html[data-navigation-direction="backward"]::view-transition-old(root) {
+      z-index: 2;
+      animation: var(--animation-time) cubic-bezier(0.32, 0.72, 0, 1) both slide-out-right;
+    }
+
+    html[data-navigation-direction="backward"]::view-transition-new(root) {
+      z-index: 1;
+      animation: var(--animation-time) cubic-bezier(0.32, 0.72, 0, 1) both slide-in-left;
+    }
+
+    *[data-navbar] {
+      view-transition-name: navbar;
+    }
+
+    *[data-toaster] {
+      view-transition-name: toaster;
+      z-index: 999;
+    }
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-out-left {
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-25%);
+  }
+}
+
+@keyframes slide-out-right {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hide-old {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 0 100%;
+  }
+}
+
+@keyframes show-new {
+  from {
+    translate: 0 100%;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+/* @layer base { */
+* {
+  @apply border-border outline-ring/50;
+}
+
+body {
+  @apply bg-background text-foreground w-svw h-svh overflow-x-hidden;
+}
+
+.h1 {
+  @apply text-4xl leading-tight font-bold md:text-6xl;
+}
+
+.h2 {
+  @apply text-3xl leading-tight font-semibold md:text-4xl;
+}
+
+.h3 {
+  @apply text-2xl leading-tight font-semibold md:text-3xl;
+}
+
+.h4 {
+  @apply text-xl leading-tight font-semibold md:text-2xl;
+}
+
+.h5 {
+  @apply text-lg leading-tight font-semibold md:text-xl;
+}
+
+.h6 {
+  @apply text-base leading-tight font-semibold md:text-lg;
+}
+
+img {
+  @apply pointer-events-none select-none;
+}
+
+.small {
+  @apply text-sm font-medium md:text-base;
+}
+
+.maplibregl-ctrl-attrib {
+  display: none!important;
+}
+
+.animate-slow {
+  animation-duration: 1.5s!important;
+}
+
+.hidden-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.stack {
+  @apply grid [&>*]:col-start-1 [&>*]:row-start-1;
+}
