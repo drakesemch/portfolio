@@ -1,4 +1,5 @@
 {
-  "build": { "commands": ["bun run build"] },
-  "start": { "command": "node .output/server/index.mjs" }
+  "deploy": {
+    "startCommand": "bun .output/server/index.mjs"
+  }
 }
