@@ -1,16 +1,23 @@
 import { Button } from "@/components/ui/button";
-import { getAward, getConfigByKey, getExperienceList, getProject } from "@/lib/pb";
+import { getAward, getConfigByKey, getExperienceList, getProject, getSkills } from "@/lib/pb";
 import { cn } from "@/lib/utils";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Award, BriefcaseBusiness, Calendar, Dot, FileUser, Link2, PanelsTopLeft, TriangleAlert, Trophy, type LucideIcon } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Award, BriefcaseBusiness, Calendar, ChevronsUp, ChevronsUpDown, Dot, Download, FileUser, Link2, PanelsTopLeft, TriangleAlert, Trophy, X, type LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { DynamicIcon } from "lucide-react/dynamic";
 import { Temporal } from "temporal-polyfill";
 import { toast } from "sonner";
+import { Backlight } from "@/components/ui/backlight";
+import { GlyphMatrix } from "@/components/ui/glyph-matrix";
+import { Marquee } from "@/components/ui/marquee";
+import seedrandom from "seedrandom";
+import { Popover, PopoverContent, PopoverHeader, PopoverTitle, PopoverTrigger, PopoverClose } from "@/components/ui/popover";
 
 export const Route = createFileRoute("/")({
   component: Home,
   loader: async () => {
+    const resumeLink = await getConfigByKey({ data: { key: "resume" } });
+
     const previews = (await Promise.all(
       Array.from({ length: 5 }).map(
         async (_, i) =>
@@ -22,6 +29,7 @@ export const Route = createFileRoute("/")({
         async (preview) => await getProject({ data: { slug: preview ?? undefined } }),
       ),
     );
+    const skills = await getSkills({ data: {} });
     const experiences = await getExperienceList({ data: { limit: 3 } });
     const awardKeys = (await Promise.all(
       Array.from({ length: 3 }).map(
@@ -36,7 +44,7 @@ export const Route = createFileRoute("/")({
     );
     const subtext = await getConfigByKey({ data: { key: "subtext" } });
     const globalProject = await getProject({ data: { slug: "<global>" } });
-    return { subtext, projects, experiences, awards, globalProject };
+    return { resumeLink, subtext, projects, skills, experiences, awards, globalProject };
   },
 });
 
@@ -162,7 +170,7 @@ type SectionProps<T extends Item> = {
   icon: LucideIcon;
   items: T[];
   styles: ThumbStyle[];
-  to: string;
+  to: (item: T | null) => string;
   allLabel: string;
   allClass?: string;
   /** aspect class for the trailing "view all" card, e.g. "aspect-9/16" */
@@ -232,7 +240,7 @@ function Section<T extends Item>({
           size="sm"
           variant="secondary"
           className="group/btn absolute top-6 right-0 opacity-0! group-hover/row:opacity-100! group-focus-within/row:opacity-100! group-hover/row:top-2 group-focus-within/row:top-2 group-hover/row:delay-200 group-focus-within/row:delay-200"
-          render={<Link to={to} />}
+          render={<Link to={to(null)} />}
           nativeButton={false}
         >
           View All <ArrowUpRight className="rotate-45 group-hover/btn:rotate-0 group-focus-within/btn:rotate-0 transition-all" />
@@ -248,7 +256,7 @@ function Section<T extends Item>({
               key={item.id}
               onClick={handleLinkClick}
               className={cn(
-                "group/image relative shrink-0 h-full rounded-lg transition-all w-auto overflow-clip",
+                "group/image relative shrink-0 h-full rounded-lg transition-all w-auto",
                 "group-hover/row:ml-0 group-focus-within/row:ml-0 group-hover/row:rotate-0 group-focus-within/row:rotate-0 group-hover/row:top-0 group-focus-within/row:top-0 group-hover/row:shadow-none group-focus-within/row:shadow-none",
                 thumbClassName,
                 style.offset,
@@ -259,7 +267,7 @@ function Section<T extends Item>({
                 style.hoverDelay,
                 revealed && cn("ml-0! rotate-0! top-0!", style.revealedDelay),
               )}
-              to={to}
+               to={to(item)}
             >
               {renderThumb(item, idx)}
               <div
@@ -298,7 +306,7 @@ function Section<T extends Item>({
             revealed && "ml-0! rotate-0! top-0! delay-120!",
             allClass,
           )}
-          to={to}
+          to={to(null)}
         >
           <div className={cn("h-full bg-muted-foreground/10 group-hover/image:bg-muted-foreground/20 transition-colors", allAspect)}>
             <div className="bg-muted-foreground/10 backdrop-blur-md rounded-full absolute top-1/2 left-1/2 -translate-1/2 size-16 pointer-coarse:size-20 transition-opacity grid place-items-center">
@@ -327,19 +335,15 @@ function Section<T extends Item>({
 }
 
 function Home() {
-  const { subtext, projects, experiences, awards, globalProject } = Route.useLoaderData();
+  const { resumeLink, subtext, projects, skills, experiences, awards, globalProject } = Route.useLoaderData();
 
-  useEffect(() => {
-    toast.warning("Site in active development", {
-      description: "Links and functionality are likely to break",
-      duration: Infinity,
-      id: "dev",
-      action: <Button variant="outline" className="ml-auto" onClick={() => toast.dismiss("dev")}>Hide</Button>,
-    });
-  }, []);
+  const rand = seedrandom("12345");
 
   return (
     <main className="max-w-[100ch] mx-auto px-4 py-32">
+      <div className="absolute top-0 left-0 -z-10 w-svw h-1/2 opacity-70">
+        <GlyphMatrix fadeBottom={1} />
+      </div>
       <div>
         <small className="text-2xl text-muted-foreground font-cursive">
           Hiya. I'm
@@ -347,24 +351,73 @@ function Home() {
         <h1 className="font-black text-6xl">Drake Semchyshyn</h1>
         <small className="text-2xl text-muted-foreground mt-2">{subtext}</small>
       </div>
-
       <Section
         title="My Projects"
         icon={PanelsTopLeft}
         items={projects}
         styles={PROJECT_STYLES}
-        to="/projects"
+        to={(project) => project?.slug ? `/projects/${project.slug}` : `/projects`}
         allLabel="All Projects"
         allAspect="aspect-9/16"
-        thumbClassName="border-4 border-black!"
+        // thumbClassName="group-hover/row:mr-6"
         renderThumb={(project, idx) => (
-          <img
-            src={idx === 0 ? project.desktop_preview : project.mobile_preview}
-            alt={project.name}
-            className="w-full h-full"
-          />
+          <div className={cn("w-full h-full", idx === 0 ? "aspect-video" : "aspect-9/19.5")}>
+            <img
+              src={idx === 0 ? project.desktop_preview : project.mobile_preview}
+              alt={project.name}
+              className={cn("w-full h-full object-cover rounded-md")}
+            />
+          </div>
         )}
       />
+      <Popover>
+        <PopoverTrigger render={<button className="-mt-8 mb-8 w-full cursor-pointer" />}>
+          <div className="group/row flex items-center bg-secondary/30 rounded-lg py-1 pl-2 w-full">
+            <h2
+              className="font-bold flex items-center gap-1 shrink-0 w-max bg-secondary pl-3 pr-4 py-1 rounded-sm"
+            >
+              <ChevronsUp className="size-4 shrink-0" /> My Skills
+            </h2>
+            <div className="relative flex-1 shrink overflow-hidden">
+              <div className="absolute top-1/2 left-1/2 -translate-1/2 rounded-md px-3 py-1 backdrop-blur-2xl z-10 flex items-center gap-1 border scale-70 group-hover/row:scale-100 group-hover/row:opacity-100 opacity-0 transition-all bg-secondary/60">
+                <ChevronsUpDown className="size-4" /> Expand
+              </div>
+              <Marquee className="text-xs [--duration:120s] group-hover/row:opacity-20 transition-all">
+                {skills.sort(() => rand() - rand()).map((s) => (
+                  <div className="flex items-center gap-1 p-1 pl-2 pr-3 rounded-xl bg-secondary/30">
+                    <div className="size-4 grid place-items-center">
+                      <DynamicIcon name={s.icon} className="size-3" />
+                    </div>
+                    <span>{s.name}</span>
+                  </div>
+                ))}
+              </Marquee>
+            </div>
+          </div>
+        </PopoverTrigger>
+        <PopoverContent align="start" className="-mt-(--anchor-height) w-(--anchor-width)" alignOffset={1} sideOffset={0}>
+          <PopoverClose render={<button className="cursor-pointer w-full h-full" />}>
+            <PopoverHeader className="flex flex-row justify-between items-center mb-2">
+              <PopoverTitle className="font-bold text-xl flex items-center gap-1">
+                <ChevronsUp className="size-6 stroke-3 shrink-0" /> My Skills
+              </PopoverTitle>
+              <Button variant="secondary" size="sm" className="items-center" render={<div/>}>
+                <span>Close</span> <X />
+              </Button>
+            </PopoverHeader>
+            <div className="flex items-center gap-2 flex-wrap">
+              {skills.sort(() => rand() - rand()).map((s) => (
+                <div className="flex items-center gap-1 p-1 pl-2 pr-3 rounded-xl bg-secondary/30">
+                  <div className="size-4 grid place-items-center">
+                    <DynamicIcon name={s.icon} className="size-3" />
+                  </div>
+                  <span>{s.name}</span>
+                </div>
+              ))}
+            </div>
+          </PopoverClose>
+        </PopoverContent>
+      </Popover>
       <div className="group/row">
         <div className="relative h-16 overflow-clip -mb-8">
           <h2
@@ -387,10 +440,10 @@ function Home() {
         <div className="p-6 rounded-md z-2 scroll-fade-y">
           <div className="flex flex-col gap-2 border-l-2 border-foreground/20! pl-2 py-1">
             {experiences.map(((ex) => (
-              <Link key={ex.id} to={"/experiences"} className="overflow-y-clip relative flex flex-col gap-1 group/link hover:bg-background/30 transition-all rounded-md px-4 py-2">
+              <Link key={ex.id} to={`/experiences/${ex.slug}`} className="overflow-y-clip relative flex flex-col gap-1 group/link hover:bg-background/30 transition-all rounded-md px-4 py-2">
                 <div className="z-10 absolute top-5.25 -left-2.75 size-1 rounded-full bg-foreground group-hover/link:bg-primary group-hover/link:top-3 group-hover/link:h-[calc(100%-1rem)] transition-all" />
                 <span className="font-bold text-xl">{ex.name}</span>
-                <div className="text-xs text-muted-foreground line-clamp-3">{ex.description || <>{"> description"}<br />{">"}<br />{">"}</>}</div>
+                <div className="text-xs text-muted-foreground line-clamp-3 h-12 pr-10 text-pretty">{ex.description || <>{"> description"}<br />{">"}<br />{">"}</>}</div>
                 <div className="flex items-center gap-1 text-xs text-muted-foreground">
                   <span>{ex.start ? Temporal.Instant.from(ex.start).toLocaleString(undefined, {
                     year: "numeric",
@@ -431,7 +484,7 @@ function Home() {
         icon={Trophy}
         items={awards}
         styles={AWARD_STYLES}
-        to="/awards"
+        to={(aw) => aw?.slug ? `/awards/${aw.slug}` : `/awards`}
         allLabel="All Awards"
         allAspect="aspect-3/2"
         allClass="-ml-96 rotate-3 top-1/35"
@@ -479,7 +532,7 @@ function Home() {
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-8">
-          <Button variant="outline" className="relative overflow-clip h-42 bg-[color-mix(var(--ui-background),var(--ui-secondary)_80%)]! hover:bg-[color-mix(var(--ui-background),var(--ui-secondary)_100%)]! group/link" render={<a target="_blank" />} nativeButton={false}>
+          <Button variant="outline" className="relative overflow-clip h-42 bg-[color-mix(var(--ui-background),var(--ui-secondary)_80%)]! hover:bg-[color-mix(var(--ui-background),var(--ui-secondary)_100%)]! group/link" render={<a target="_blank" href={resumeLink} />} nativeButton={false}>
             <FileUser className="absolute -bottom-8 -left-8 size-36 opacity-5 -rotate-10 group-hover/link:bottom-0 group-hover/link:left-2 group-hover/link:rotate-0 transition-all" />
             <div className="flex-1 w-full h-full flex justify-start items-end">
               <div className="flex items-center gap-2 font-bold text-3xl origin-bottom-left group-hover/link:scale-125 transition-all">
@@ -490,9 +543,9 @@ function Home() {
               </div>
             </div>
             <div className="opacity-0 group-hover/link:opacity-100 bg-muted-foreground/10 backdrop-blur-md rounded-full absolute top-1/2 right-12 -translate-y-1/2 size-16 pointer-coarse:size-20 transition-all grid place-items-center">
-              <ArrowUpRight
+              <Download
                 className={cn(
-                  "size-8 rotate-45 transition-all delay-100",
+                  "size-8 -rotate-45 transition-all delay-50",
                   "group-hover/link:rotate-0 group-focus-within/link:rotate-0",
                 )}
               />
