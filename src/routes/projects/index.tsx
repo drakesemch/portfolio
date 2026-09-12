@@ -29,8 +29,8 @@ function RouteComponent() {
           {projects.map((p) => (
             <Link className="flex md:flex-row flex-col items-center gap-4 group/link hover:bg-secondary/30 rounded-xl p-2 transition-all cursor-pointer" to={`/projects/${p.slug}`}>
               <div className="h-42 flex aspect-video items-center gap-2 overflow-clip mr-auto">
-                <div className="aspect-video h-full rounded-lg overflow-clip border border-foreground/20!">{p.desktop_preview ? <img src={p.desktop_preview} className="h-full w-full" /> : <div className="w-full h-full -bg-linear-60 from-background to-secondary/20" />}</div>
-                <div className="aspect-9/19.5 h-full -ml-24 border border-foreground/20! relative top-28 shadow-2xl rounded-sm overflow-clip rotate-3 scale-90 group-hover/link:rotate-0 group-hover/link:top-0 group-hover/link:-ml-22.5 transition-all">{p.mobile_preview ? <img src={p.mobile_preview} className="h-full w-full" /> : <div className="w-full h-full -bg-linear-60 from-background to-secondary/20" />}</div>
+                <div className="aspect-video h-full rounded-lg overflow-clip border border-foreground/20!">{p.desktop_preview ? <img src={p.desktop_preview} className="h-full w-full" /> : <div className="w-full h-full -bg-linear-60 from-background to-secondary/20 flex justify-start items-end font-black p-4 text-2xl pr-8">{p.name}</div>}</div>
+                {p.mobile_preview && (<div className="aspect-9/19.5 h-full -ml-24 border border-foreground/20! relative top-28 shadow-2xl rounded-sm overflow-clip rotate-3 scale-90 group-hover/link:rotate-0 group-hover/link:top-0 group-hover/link:-ml-22.5 transition-all"><img src={p.mobile_preview} className="h-full w-full" /></div>)}
               </div>
               <div className="flex-1 flex items-start justify-start flex-col gap-1 w-full">
                 <h2 className="h2 font-black!">{p.name}</h2>

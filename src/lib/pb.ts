@@ -102,7 +102,7 @@ export const getProject = createServerFn()
 
     const resultList = await pb.collection("projects").getList(1, 1, {
       filter,
-      expand: "links,awards",
+      expand: "links,awards,tech_stack,start_article",
       requestKey: JSON.stringify(["project", data.id, data.slug]),
     });
 
@@ -124,6 +124,8 @@ export const getProject = createServerFn()
       }
       item.links = item.expand?.links ?? [];
       item.awards = item.expand?.awards ?? [];
+      item.tech_stack = item.expand?.tech_stack ?? [];
+      item.start_article = item.expand?.start_article ?? undefined;
       return item;
     });
 
