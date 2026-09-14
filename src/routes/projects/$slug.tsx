@@ -17,7 +17,7 @@ import { DynamicIcon } from 'lucide-react/dynamic';
 
 export const Route = createFileRoute('/projects/$slug')({
   component: RouteComponent,
-  loader: async ({params: {slug}}) => {
+  loader: async ({ params: {slug} }) => {
     const project = await getProject({ data: { slug } });
 
     return { project };
@@ -177,7 +177,7 @@ function RouteComponent() {
                 {links.map((l) => (
                   <Button size="sm" variant="outline" className={cn("text-xs h-6 cursor-pointer")} render={<a href={l.url || undefined} onClick={(e) => e.stopPropagation()} target="_blank" />}>
                     <div className="size-3">
-                    <DynamicIcon name={l.icon} className="size-3" />
+                      <DynamicIcon name={l.icon} className="size-3" />
                     </div>
                     {l.label}
                   </Button>
@@ -203,7 +203,7 @@ function RouteComponent() {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t typeset" dangerouslySetInnerHTML={{
-          __html: project.start_article?.content ?? '<div class="text-muted-foreground text-xs text-center">No additional content provided</div>'
+          __html: project.display_article?.content ?? '<div class="text-muted-foreground text-xs text-center">No additional content provided</div>'
         }} />
       </div>
     </main>

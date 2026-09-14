@@ -13,5 +13,6 @@ export async function getPB() {
       .collection("_superusers")
       .authWithPassword(env.PB_USERNAME, env.PB_PASSWORD);
   }
+  globalThis.pocketBase.autoCancellation(false);
   return globalThis.pocketBase;
 }

@@ -11,8 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
+import { Route as ExperiencesIndexRouteImport } from './routes/experiences/index'
+import { Route as AwardsIndexRouteImport } from './routes/awards/index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
 import { Route as GamesTicTacToeRouteImport } from './routes/games/tic-tac-toe'
+import { Route as ExperiencesSlugRouteImport } from './routes/experiences/$slug'
+import { Route as AwardsSlugRouteImport } from './routes/awards/$slug'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -25,6 +29,16 @@ const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   path: '/projects/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExperiencesIndexRoute = ExperiencesIndexRouteImport.update({
+  id: '/experiences/',
+  path: '/experiences/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AwardsIndexRoute = AwardsIndexRouteImport.update({
+  id: '/awards/',
+  path: '/awards/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   id: '/projects/$slug',
   path: '/projects/$slug',
@@ -35,6 +49,16 @@ const GamesTicTacToeRoute = GamesTicTacToeRouteImport.update({
   path: '/games/tic-tac-toe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExperiencesSlugRoute = ExperiencesSlugRouteImport.update({
+  id: '/experiences/$slug',
+  path: '/experiences/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AwardsSlugRoute = AwardsSlugRouteImport.update({
+  id: '/awards/$slug',
+  path: '/awards/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -43,23 +67,35 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/awards/$slug': typeof AwardsSlugRoute
+  '/experiences/$slug': typeof ExperiencesSlugRoute
   '/games/tic-tac-toe': typeof GamesTicTacToeRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/awards/': typeof AwardsIndexRoute
+  '/experiences/': typeof ExperiencesIndexRoute
   '/projects/': typeof ProjectsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/awards/$slug': typeof AwardsSlugRoute
+  '/experiences/$slug': typeof ExperiencesSlugRoute
   '/games/tic-tac-toe': typeof GamesTicTacToeRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/awards': typeof AwardsIndexRoute
+  '/experiences': typeof ExperiencesIndexRoute
   '/projects': typeof ProjectsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/awards/$slug': typeof AwardsSlugRoute
+  '/experiences/$slug': typeof ExperiencesSlugRoute
   '/games/tic-tac-toe': typeof GamesTicTacToeRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/awards/': typeof AwardsIndexRoute
+  '/experiences/': typeof ExperiencesIndexRoute
   '/projects/': typeof ProjectsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -67,26 +103,46 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/awards/$slug'
+    | '/experiences/$slug'
     | '/games/tic-tac-toe'
     | '/projects/$slug'
+    | '/awards/'
+    | '/experiences/'
     | '/projects/'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/games/tic-tac-toe' | '/projects/$slug' | '/projects' | '/api/auth/$'
+    | '/'
+    | '/awards/$slug'
+    | '/experiences/$slug'
+    | '/games/tic-tac-toe'
+    | '/projects/$slug'
+    | '/awards'
+    | '/experiences'
+    | '/projects'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
+    | '/awards/$slug'
+    | '/experiences/$slug'
     | '/games/tic-tac-toe'
     | '/projects/$slug'
+    | '/awards/'
+    | '/experiences/'
     | '/projects/'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AwardsSlugRoute: typeof AwardsSlugRoute
+  ExperiencesSlugRoute: typeof ExperiencesSlugRoute
   GamesTicTacToeRoute: typeof GamesTicTacToeRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
+  AwardsIndexRoute: typeof AwardsIndexRoute
+  ExperiencesIndexRoute: typeof ExperiencesIndexRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
@@ -107,6 +163,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/experiences/': {
+      id: '/experiences/'
+      path: '/experiences'
+      fullPath: '/experiences/'
+      preLoaderRoute: typeof ExperiencesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/awards/': {
+      id: '/awards/'
+      path: '/awards'
+      fullPath: '/awards/'
+      preLoaderRoute: typeof AwardsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects/$slug': {
       id: '/projects/$slug'
       path: '/projects/$slug'
@@ -121,6 +191,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesTicTacToeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/experiences/$slug': {
+      id: '/experiences/$slug'
+      path: '/experiences/$slug'
+      fullPath: '/experiences/$slug'
+      preLoaderRoute: typeof ExperiencesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/awards/$slug': {
+      id: '/awards/$slug'
+      path: '/awards/$slug'
+      fullPath: '/awards/$slug'
+      preLoaderRoute: typeof AwardsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -133,8 +217,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AwardsSlugRoute: AwardsSlugRoute,
+  ExperiencesSlugRoute: ExperiencesSlugRoute,
   GamesTicTacToeRoute: GamesTicTacToeRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
+  AwardsIndexRoute: AwardsIndexRoute,
+  ExperiencesIndexRoute: ExperiencesIndexRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }

@@ -495,7 +495,7 @@ function Home() {
           >
             <div className="flex items-end gap-2">
               <Award className="size-8 stroke-3" />
-              <span className="text-2xl text-muted-foreground font-bold">{award.place}{numberSuffix(award.place)}</span>
+              <span className="text-2xl text-muted-foreground font-bold">{award.place !== 0 ? `${award.place}${numberSuffix(award.place)}` : ""}</span>
               <span className="text-sm text-muted-foreground pb-1.25">{award.placeOf !== 0 ? `of ${award.placeOf}` : ""}</span>
             </div>
             <span className="line-clamp-2 pr-6 font-bold text-3xl">

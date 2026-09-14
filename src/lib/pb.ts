@@ -102,7 +102,7 @@ export const getProject = createServerFn()
 
     const resultList = await pb.collection("projects").getList(1, 1, {
       filter,
-      expand: "links,awards,tech_stack,start_article",
+      expand: "links,awards,tech_stack,display_article",
       requestKey: JSON.stringify(["project", data.id, data.slug]),
     });
 
@@ -125,7 +125,49 @@ export const getProject = createServerFn()
       item.links = item.expand?.links ?? [];
       item.awards = item.expand?.awards ?? [];
       item.tech_stack = item.expand?.tech_stack ?? [];
-      item.start_article = item.expand?.start_article ?? undefined;
+      item.display_article = item.expand?.display_article ?? undefined;
+      return item;
+    });
+
+    return resultList.items[0];
+  });
+
+export const getExperience = createServerFn()
+  .validator(
+    z.object({ id: z.string().optional(), slug: z.string().optional() }),
+  )
+  .handler(async ({ data }) => {
+    const pb = await getPB();
+
+    if (!data.id && !data.slug) {
+      throw new Error("Either id or slug must be provided");
+    }
+
+    let filter = "";
+    if (data.id) {
+      filter = `id = "${data.id}"`;
+    }
+
+    if (data.slug) {
+      filter = filter
+        ? `${filter} && slug = "${data.slug}"`
+        : `slug = "${data.slug}"`;
+    }
+
+    const resultList = await pb.collection("jobs").getList(1, 1, {
+      filter,
+      expand: "display_article,projects,roles",
+      requestKey: JSON.stringify(["project", data.id, data.slug]),
+    });
+
+    if (resultList.totalItems === 0) {
+      throw new Error(`Experience not found (filter: "${filter}")!`);
+    }
+
+    resultList.items = resultList.items.map((item) => {
+      item.roles = item.expand?.roles ?? [];
+      item.projects = item.expand?.projects ?? [];
+      item.display_article = item.expand?.display_article ?? undefined;
       return item;
     });
 
@@ -138,7 +180,7 @@ export const getExperienceList = createServerFn()
     const pb = await getPB();
 
     if (!data.limit) {
-      throw new Error("Either id or slug must be provided");
+      throw new Error("A limit must be provided");
     }
 
     // let filter = "";
@@ -152,11 +194,21 @@ export const getExperienceList = createServerFn()
     //     : `slug = "${data.slug}"`;
     // }
 
-    const resultList = await pb.collection("jobs").getFullList({
+    let resultList = await pb.collection("jobs").getFullList({
       // filter,
+      expand: "display_article,projects,roles",
       perPage: 100,
       requestKey: JSON.stringify(["experience"]),
     });
+
+    resultList = resultList.map((item) => {
+      item.roles = item.expand?.roles ?? [];
+      item.projects = item.expand?.projects ?? [];
+      item.display_article = item.expand?.display_article ?? undefined;
+      return item;
+    });
+
+    resultList = resultList.sort((a, b) => (b.end ? new Date(b.end).getTime() : new Date().getTime()) - (a.end ? new Date(a.end).getTime() : new Date().getTime())).filter((_, i) => i < data.limit);
 
     return resultList.sort((a, b) => (b.end ? new Date(b.end).getTime() : new Date().getTime()) - (a.end ? new Date(a.end).getTime() : new Date().getTime())).filter((_, i) => i < data.limit);
   });
@@ -185,6 +237,7 @@ export const getAward = createServerFn()
 
     const resultList = await pb.collection("awards").getList(1, 1, {
       filter,
+      expand: "display_article,projects,roles",
       requestKey: JSON.stringify(["awards", data.id, data.slug]),
     });
 
@@ -192,5 +245,53 @@ export const getAward = createServerFn()
       throw new Error(`Award not found (filter: "${filter}")!`);
     }
 
+    resultList.items = resultList.items.map((item) => {
+      item.roles = item.expand?.roles ?? [];
+      item.projects = item.expand?.projects ?? [];
+      item.display_article = item.expand?.display_article ?? undefined;
+      return item;
+    });
+
     return resultList.items[0];
+  });
+
+export const getAwards = createServerFn()
+  .validator(
+    z.object({ limit: z.number() }),
+  )
+  .handler(async ({ data }) => {
+    const pb = await getPB();
+
+    if (!data.limit) {
+      throw new Error("A limit must be provided");
+    }
+
+    // let filter = "";
+    // if (data.id) {
+    //   filter = `id = "${data.id}"`;
+    // }
+
+    // if (data.slug) {
+    //   filter = filter
+    //     ? `${filter} && slug = "${data.slug}"`
+    //     : `slug = "${data.slug}"`;
+    // }
+
+    let resultList = await pb.collection("awards").getFullList({
+      // filter,
+      expand: "display_article,projects,roles",
+      perPage: 100,
+      requestKey: JSON.stringify(["awards"]),
+    });
+
+    resultList = resultList.map((item) => {
+      item.roles = item.expand?.roles ?? [];
+      item.projects = item.expand?.projects ?? [];
+      item.display_article = item.expand?.display_article ?? undefined;
+      return item;
+    });
+
+    resultList = resultList.sort((a, b) => (b.end ? new Date(b.end).getTime() : new Date().getTime()) - (a.end ? new Date(a.end).getTime() : new Date().getTime())).filter((_, i) => i < data.limit);
+
+    return resultList.sort((a, b) => (b.end ? new Date(b.end).getTime() : new Date().getTime()) - (a.end ? new Date(a.end).getTime() : new Date().getTime())).filter((_, i) => i < data.limit);
   });
